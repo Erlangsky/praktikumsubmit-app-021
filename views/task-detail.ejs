@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>📄 Detail Tugas</h1>
+        
+        <div class="detail-card">
+            <div class="detail-item">
+                <strong>NIM:</strong> <%= submission.nim %>
+            </div>
+            <div class="detail-item">
+                <strong>Nama:</strong> <%= submission.name %>
+            </div>
+            <div class="detail-item">
+                <strong>Kelas:</strong> <%= submission.class %>
+            </div>
+            <div class="detail-item">
+                <strong>Mata Kuliah:</strong> <%= submission.course %>
+            </div>
+            <div class="detail-item">
+                <strong>File:</strong> <%= submission.filename %>
+            </div>
+            <div class="detail-item">
+                <strong>Status:</strong> 
+                <span class="status-<%= submission.status.toLowerCase() %>">
+                    <%= submission.status %>
+                </span>
+            </div>
+            <div class="detail-item">
+                <strong>Waktu Upload:</strong> <%= submission.upload_time %>
+            </div>
+            
+            <div class="detail-actions">
+                <a href="<%= submission.file_url %>" target="_blank" class="btn btn-primary">
+                    📥 Download File
+                </a>
+                <a href="/task-list" class="btn btn-secondary">← Kembali</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

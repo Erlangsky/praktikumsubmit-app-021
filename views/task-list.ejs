@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>📋 Daftar Tugas</h1>
+        
+        <% if (isAdmin) { %>
+            <div class="admin-badge">🔐 Admin Mode</div>
+            <a href="/admin-logout" class="btn btn-sm">Logout</a>
+        <% } %>
+        
+        <% if (submissions.length === 0) { %>
+            <p>Belum ada tugas yang dikumpulkan.</p>
+        <% } else { %>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>NIM</th>
+                        <th>Nama</th>
+                        <th>Kelas</th>
+                        <th>Mata Kuliah</th>
+                        <th>Status</th>
+                        <th>Waktu</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% submissions.forEach(sub => { %>
+                        <tr>
+                            <td><%= sub.nim %></td>
+                            <td><%= sub.name %></td>
+                            <td><%= sub.class %></td>
+                            <td><%= sub.course %></td>
+                            <td><span class="status-<%= sub.status.toLowerCase() %>"><%= sub.status %></span></td>
+                            <td><%= sub.upload_time %></td>
+                            <td>
+                                <a href="/task-detail/<%= sub.id %>" class="btn btn-sm">Detail</a>
+                                <a href="<%= sub.file_url %>" target="_blank" class="btn btn-sm">Download</a>
+                            </td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        <% } %>
+        
+        <a href="/" class="btn btn-secondary">← Kembali</a>
+    </div>
+</body>
+</html>
