@@ -10,23 +10,16 @@ const crypto = require('crypto');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const pool = mysql.createPool({
+// Database connection
+const db = mysql.createConnection({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
-    ssl: { rejectUnauthorized: true },
-    waitForConnections: true,
-    connectionLimit: 10,        // Maksimal koneksi
-    queueLimit: 0,              // Unlimited antrian
-    enableKeepAlive: true,      // Keep connection alive
-    keepAliveInitialDelay: 0
+    ssl: { rejectUnauthorized: true }
 });
 
-// Promise wrapper untuk async/await
-const promisePool = pool.promise();
-
-pool.connect((err) => {
+db.connect((err) => {
     if (err) {
         console.error('Database connection failed:', err);
         return;
