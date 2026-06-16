@@ -10,26 +10,24 @@ const crypto = require('crypto');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const db = mysql.createPool({
+// Database connection
+const db = mysql.createConnection({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
-    ssl: { rejectUnauthorized: true },
-    waitForConnections: true,
-    connectionLimit: 10,
-    queueLimit: 0
+    ssl: { rejectUnauthorized: true }
 });
 
-db.getConnection((err, connection) => {
+db.connect((err) => {
     if (err) {
         console.error('Database connection failed:', err);
         return;
     }
-    console.log('Connected to Azure Database for MySQL (using Pool)');
-    connection.release();
+    console.log('Connected to Azure Database for MySQL');
 });
 
+// Azure Storage setup
 const blobServiceClient = BlobServiceClient.fromConnectionString(
     process.env.AZURE_STORAGE_CONNECTION_STRING
 );
